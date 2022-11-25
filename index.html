@@ -6,42 +6,77 @@
 	<title></title>
 	<style type="text/css">
 		body{
-			background:url(https://png.pngtree.com/thumb_back/fh260/background/20220620/pngtree-gradient-blue-background-abstract-image_1414649.jpg);
+			background:url(https://i.pinimg.com/736x/2a/db/60/2adb60ba397cdd455fa66180f41894b6.jpg);
 			background-size: cover;
 		}
 		.group{
 			text-align: center;
-			margin-top: 20%;
+			justify-content: center;
+			margin-top: 8%;
+		}
+		#heading{
+			color: #4B0082;
 		}
 		#data{
-			width: 13%;
+			border-radius: 25px;
+			padding: 0.5%;
+			font-size: 15px;
 		}
 		#password{
-			width: 13%;
+			font-size: 15px;
+			border-radius: 25px;
+			padding: 0.5%;
 		}
 		.btn{
-			
+			font-size: 19px;
+			border-radius:25px;
+			width: 8%;
+		}
+		#selection{
+			font-size: 18px;
+			border-radius:25px;
+			width: 13%;
+			padding: 0.4%;
+		}
+		#gender{
+			font-size:20px;
 		}
 	</style>
 </head>
 <body>
 	<div class="group">
-		<h1>REGISTRATION FORM</h1>
+		<h1 id="heading">REGISTRATION FORM</h1>
 		<p><input placeholder="Enter data" id="data"/></p>
 		<p><input placeholder="Enter password" id="password" type="password" /></p>
-		<button onclick="display()" class="btn">Submit</button>
+		<p><select id="selection">
+			<option value="Select College">Select College</option>
+			<option value="P.B.Siddhartha clg of Arts & Science">P.B.Siddhartha clg of Arts & Science</option>
+			<option value="Stella College">Stella College</option>
+			<option value="Loyola College">Loyola College</option>
+			<option value="Gayatri College">Gayatri College</option>
+		</select></p>
+		<p id="gender">
+				<input type="radio" name="gender" id="female"/>Female
+				<input type="radio" name="gender"id="male" />Male
+		<p>
+			<button onclick="display()" class="btn">Submit</button></p>
 	</div>
 	<script type="text/javascript">
 		function display(){
 			var username=document.getElementById("data").value
 			var password=document.getElementById("password").value
-			console.log(username,password)
+			var options=document.getElementById("selection").value
+			var gfemale=document.getElementById("female").checked
+			var gmale=document.getElementById("male").checked
+			if(gfemale==true) var gender="female"
+			else var gender="male"
+			console.log(username,password,gender)
 			fetch("http://localhost:3000/newData",{
 				method:"POST",
 				headers:{
 					"Content-Type":"application/json"
 				},
-				body:JSON.stringify({name:username,password:password})
+				body:JSON.stringify({name:username,password:password,college:options,gender:gender})
 			})
 			.then((res)=>{
 				console.log(res)
